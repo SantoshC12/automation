@@ -20,35 +20,31 @@ public class BrowserMgr {
 	private static String SELENIUM_HUB_URL;
 	private static final String FIREFOX = "Mozilla";
 	private static final String IE = "IE";
-
 	
 	public static WebDriver createDriver(String appUrl) throws MalformedURLException, URISyntaxException{
 		WebDriver driver = null;
 		String applicationUrl = "";
-		SELENIUM_HUB_URL = PropRdr.getHub().getProperty("Selenium_hub").trim();
-		System.out.println(SELENIUM_HUB_URL);
-		URL server = new URL(SELENIUM_HUB_URL);
+		String username = PropRdr.getHub().getProperty("Selenium_hub").trim();
+		String accessKey = PropRdr.getHub().getProperty("USERNAME").trim();
+		String hubUrl = PropRdr.getHub().getProperty("ACCESS_KEY").trim();
+		SELENIUM_HUB_URL = "https://" + username + ":" + accessKey + hubUrl;
 		String browserName = PropRdr.getConfig().getProperty("BrowserName").trim();
-		System.out.println(browserName);
 		if(appUrl!=null){
 			applicationUrl = PropRdr.getConfig().getProperty("appUrl").trim();
 		}
-		Capabilities capabilities;
 		if(browserName.equalsIgnoreCase(BrowserMgr.IE)){
-			capabilities = setIECapabilities(applicationUrl);
-			driver = new RemoteWebDriver(server,capabilities);
+			DesiredCapabilities caps = DesiredCapabilities.edge();
+			caps.setCapability("platform", "Windows 10");
+			caps.setCapability("version", "14.14393");
+			driver = new RemoteWebDriver(new URL(SELENIUM_HUB_URL), caps);
 		}
 		else if(browserName.equalsIgnoreCase(BrowserMgr.FIREFOX)){
-			
-			FirefoxProfile profile = new FirefoxProfile();
-			System.setProperty("webdriver.gecko.driver", "F:/Santosh/SeleniumServer/geckodriver-v0.18.0-win32/geckodriver.exe");
-			DesiredCapabilities cap = DesiredCapabilities.firefox();
-			cap.setCapability("marionette", false);
-			cap.setCapability(FirefoxDriver.PROFILE, profile);
-//			driver = new FirefoxDriver(cap);
-			driver = new RemoteWebDriver(server,cap);
-			driver.get(applicationUrl);
+			DesiredCapabilities caps = DesiredCapabilities.firefox();
+			caps.setCapability("platform", "Windows 10");
+			caps.setCapability("version", "52.0");
+			driver = new RemoteWebDriver(new URL(SELENIUM_HUB_URL), caps);
 		}
+		driver.get(applicationUrl);
 		driver.manage().window().maximize();
 		return driver;
 		
