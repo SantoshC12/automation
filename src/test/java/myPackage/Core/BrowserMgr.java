@@ -50,33 +50,4 @@ public class BrowserMgr {
 		
 	}
 
-
-	private static Capabilities setIECapabilities(String url) throws URISyntaxException {
-		DesiredCapabilities cap = DesiredCapabilities.internetExplorer();
-		cap.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-		cap.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
-		if(url!=null){
-			cap.setCapability(InternetExplorerDriver.INITIAL_BROWSER_URL, url);
-		}
-//		ClassLoader classLoader = WebFactory.class.getClassLoader();
-//		URL exeurl = classLoader.getResource("ie/IEDriverServer.exe");
-//		File file = new File(exeurl.toURI());
-		File file = new File("path");
-		System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
-		return cap;
-	}
-
-
-	private static Capabilities setFireFoxCapabilities() {
-		FirefoxProfile profile = new FirefoxProfile();
-//		profile.setPreference("browser.download.panel.shown", false);
-//		profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
-//		profile.setEnableNativeEvents(true);
-		System.setProperty("webdriver.gecko.driver", "F:/Santosh/SeleniumServer/geckodriver-v0.18.0-win32/geckodriver.exe");
-		DesiredCapabilities cap = DesiredCapabilities.firefox();
-		cap.setCapability("marionette", true);
-		cap.setCapability(FirefoxDriver.PROFILE, profile);
-		return cap;
-	}
-	
 }
