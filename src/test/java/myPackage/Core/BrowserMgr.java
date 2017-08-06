@@ -27,7 +27,7 @@ public class BrowserMgr {
 		String hubUrl = PropRdr.getHub().getProperty("Selenium_hub").trim();
 		String accessKey = PropRdr.getHub().getProperty("ACCESS_KEY").trim();
 		String username = PropRdr.getHub().getProperty("USERNAME").trim();
-		SELENIUM_HUB_URL = "https://" + username + ":" + accessKey + hubUrl;
+		SELENIUM_HUB_URL = "http://" + username + ":" + accessKey + hubUrl;
 //		System.out.println(SELENIUM_HUB_URL);
 		String browserName = PropRdr.getConfig().getProperty("BrowserName").trim();
 		if(appUrl!=null){
