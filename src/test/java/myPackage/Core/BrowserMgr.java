@@ -24,10 +24,11 @@ public class BrowserMgr {
 	public static WebDriver createDriver(String appUrl) throws MalformedURLException, URISyntaxException{
 		WebDriver driver = null;
 		String applicationUrl = "";
-		String username = PropRdr.getHub().getProperty("Selenium_hub").trim();
-		String accessKey = PropRdr.getHub().getProperty("USERNAME").trim();
-		String hubUrl = PropRdr.getHub().getProperty("ACCESS_KEY").trim();
+		String hubUrl = PropRdr.getHub().getProperty("Selenium_hub").trim();
+		String accessKey = PropRdr.getHub().getProperty("ACCESS_KEY").trim();
+		String username = PropRdr.getHub().getProperty("USERNAME").trim();
 		SELENIUM_HUB_URL = "https://" + username + ":" + accessKey + hubUrl;
+//		System.out.println(SELENIUM_HUB_URL);
 		String browserName = PropRdr.getConfig().getProperty("BrowserName").trim();
 		if(appUrl!=null){
 			applicationUrl = PropRdr.getConfig().getProperty("appUrl").trim();
